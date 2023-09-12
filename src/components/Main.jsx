@@ -3,13 +3,13 @@ import React from "react";
 export default function Main() {
 
   function handleEditAvatarClick() {
-    const modalProfileEdit = document.querySelector(".modal_type_profile-edit");
-    modalProfileEdit.classList.add("modal_opened");
+    const modalAvatarEdit = document.querySelector(".modal_type_avatar-update");
+    modalAvatarEdit.classList.add("modal_opened");
   }
 
   function handleEditProfileClick() {
-    const modalAvatarEdit = document.querySelector(".modal_type_avatar-update");
-    modalAvatarEdit.classList.add("modal_opened");
+    const modalProfileEdit = document.querySelector(".modal_type_profile-edit");
+    modalProfileEdit.classList.add("modal_opened");
   }
 
   function handleAddPlaceClick() {
