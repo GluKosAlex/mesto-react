@@ -1,11 +1,15 @@
 import React from 'react';
 
-export default function Card({ cardData }) {
-  //console.log(cardData);
-  const { likes, _id, name, link } = cardData;
+export default function Card({ cardData, onCardClick }) {
+  function handleClick() {
+    onCardClick(cardData);
+  }
+
+  const { likes, name, link } = cardData;
+
   return (
-    <li key={_id} className='element'>
-      <img src={link} alt='' className='element__image' />
+    <li className='element'>
+      <img src={link} alt='' className='element__image' onClick={handleClick} />
       <div className='element__caption'>
         <h2 className='element__title'>{name}</h2>
         <div className='element__like-wrap'>

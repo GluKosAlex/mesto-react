@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react';
 import api from './../utils/api';
 import Card from './Card';
 
-export default function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
+export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   const [userName, setUserName] = useState('');
   const [userDescription, setUserDescription] = useState('');
   const [userAvatar, setUserAvatar] = useState('');
@@ -11,7 +11,6 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
   useEffect(() => {
     Promise.all([api.getInitialCards(), api.getUserInfo()])
       .then(([cardsData, { name, about, avatar }]) => {
-        console.log(cardsData);
         setUserName(name);
         setUserDescription(about);
         setUserAvatar(avatar);
@@ -51,7 +50,7 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
       <section>
         <ul className='elements'>
           {cards.map(item => {
-            return <Card cardData={item} />;
+            return <Card key={item._id} cardData={item} onCardClick={onCardClick} />;
           })}
         </ul>
       </section>

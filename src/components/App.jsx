@@ -10,6 +10,8 @@ function App() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const [isAddPlaceModalOpen, setIsAddPlaceModalOpen] = useState(false);
   const [isEditAvatarModalOpen, setIsEditAvatarModalOpen] = useState(false);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
 
   function handleEditProfileClick() {
     setIsEditProfileModalOpen(true);
@@ -23,10 +25,16 @@ function App() {
     setIsEditAvatarModalOpen(true);
   }
 
+  function handleCardClick(cardData) {
+    setIsImageModalOpen(true);
+    setSelectedCard(cardData);
+  }
+
   function closeAllModals() {
     setIsEditProfileModalOpen(false);
     setIsAddPlaceModalOpen(false);
     setIsEditAvatarModalOpen(false);
+    setIsImageModalOpen(false);
   }
 
   return (
@@ -37,6 +45,7 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
       />
 
       <Footer />
@@ -127,7 +136,7 @@ function App() {
         onClose={closeAllModals}
       ></ModalWithForm>
 
-      <ModalWithImage></ModalWithImage>
+      <ModalWithImage card={selectedCard} onClose={closeAllModals} isOpen={isImageModalOpen} />
     </>
   );
 }
