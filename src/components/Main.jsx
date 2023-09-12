@@ -1,27 +1,11 @@
 import React from "react";
 
-export default function Main() {
-
-  function handleEditAvatarClick() {
-    const modalAvatarEdit = document.querySelector(".modal_type_avatar-update");
-    modalAvatarEdit.classList.add("modal_opened");
-  }
-
-  function handleEditProfileClick() {
-    const modalProfileEdit = document.querySelector(".modal_type_profile-edit");
-    modalProfileEdit.classList.add("modal_opened");
-  }
-
-  function handleAddPlaceClick() {
-    const modalCardAdd = document.querySelector(".modal_type_card-add");
-    modalCardAdd.classList.add("modal_opened");
-  }
-
+export default function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
   return (
     <main className="content page__content wrapper">
       <section className="profile">
         <div className="profile__wrap">
-          <div className="profile__avatar-wrap" onClick={handleEditAvatarClick}>
+          <div className="profile__avatar-wrap" onClick={onEditAvatar}>
             <img className="profile__avatar-img" src="#" alt="Аватарка" />
           </div>
           <div className="profile__info">
@@ -31,7 +15,7 @@ export default function Main() {
                 type="button"
                 className="profile__edit"
                 aria-label="Редактировать профиль"
-                onClick={handleEditProfileClick}
+                onClick={onEditProfile}
               ></button>
             </div>
             <p className="profile__about"></p>
@@ -41,7 +25,7 @@ export default function Main() {
           type="button"
           className="profile__add-btn"
           aria-label="Добавить пост"
-          onClick={handleAddPlaceClick}
+          onClick={onAddPlace}
         ></button>
       </section>
 

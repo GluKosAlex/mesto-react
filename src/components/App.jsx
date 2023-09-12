@@ -1,3 +1,5 @@
+import { React, useState } from "react";
+
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -5,11 +7,37 @@ import ModalWithForm from "./ModalWithForm";
 import ModalWithImage from "./ModalWithImage";
 
 function App() {
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
+  const [isAddPlaceModalOpen, setIsAddPlaceModalOpen] = useState(false);
+  const [isEditAvatarModalOpen, setIsEditAvatarModalOpen] = useState(false);
+
+  function handleEditProfileClick() {
+    setIsEditProfileModalOpen(true);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlaceModalOpen(true);
+  }
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarModalOpen(true);
+  }
+
+  function closeAllModals() {
+    setIsEditProfileModalOpen(false);
+    setIsAddPlaceModalOpen(false);
+    setIsEditAvatarModalOpen(false);
+  }
+
   return (
     <>
       <Header />
 
-      <Main />
+      <Main
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+      />
 
       <Footer />
 
@@ -17,6 +45,8 @@ function App() {
         title="Редактировать профиль"
         name="profile-edit"
         btnText="Сохранить"
+        isOpen={isEditProfileModalOpen}
+        onClose={closeAllModals}
       >
         <input
           id="name"
@@ -46,6 +76,8 @@ function App() {
         title="Обновить аватар"
         name="avatar-update"
         btnText="Сохранить"
+        isOpen={isEditAvatarModalOpen}
+        onClose={closeAllModals}
       >
         <input
           id="avatar-url"
@@ -58,7 +90,13 @@ function App() {
         <span className="form__input-error avatar-url-error"></span>
       </ModalWithForm>
 
-      <ModalWithForm title="Новое место" name="card-add" btnText="Создать">
+      <ModalWithForm
+        title="Новое место"
+        name="card-add"
+        btnText="Создать"
+        isOpen={isAddPlaceModalOpen}
+        onClose={closeAllModals}
+      >
         <input
           id="img-title"
           className="form__text-input form__text-input_data_img-title"
@@ -85,6 +123,8 @@ function App() {
         title="Вы уверены?"
         name="confirm"
         btnText="Да"
+        isOpen={false}
+        onClose={closeAllModals}
       ></ModalWithForm>
 
       <ModalWithImage></ModalWithImage>
