@@ -31,6 +31,7 @@
 ![CSS3](https://img.shields.io/badge/-CSS3-1572b6?logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-f7df1e?logo=javaScript&logoColor=black)
 ![BEM](https://img.shields.io/badge/-BEM-yellowgreen)
+![React](https://img.shields.io/badge/React-3b82f6)
 
 ## Инструкция по установке:
 
