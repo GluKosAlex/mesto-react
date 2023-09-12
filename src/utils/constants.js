@@ -1,30 +1,30 @@
-// Profile search
-const profileInfo = document.querySelector('.profile');
+// // Profile search
+// const profileInfo = document.querySelector('.profile');
 
-// Modal windows search
-const modalProfileEdit = document.querySelector('.modal_type_profile-edit');
-const modalAvatarEdit = document.querySelector('.modal_type_avatar-update');
-const modalCardAdd = document.querySelector('.modal_type_card-add');
-const modalConfirm = document.querySelector('.modal_type_confirm');
+// // Modal windows search
+// const modalProfileEdit = document.querySelector('.modal_type_profile-edit');
+// const modalAvatarEdit = document.querySelector('.modal_type_avatar-update');
+// const modalCardAdd = document.querySelector('.modal_type_card-add');
+// const modalConfirm = document.querySelector('.modal_type_confirm');
 
-// Modals open buttons search
-const btnProfileEdit = profileInfo.querySelector('.profile__edit');
-const btnCardAdd = profileInfo.querySelector('.profile__add-btn');
-const avatarEdit = profileInfo.querySelector('.profile__avatar-wrap');
-const btnDeleteConfirm = modalConfirm.querySelector('.form__button');
+// // Modals open buttons search
+// const btnProfileEdit = profileInfo.querySelector('.profile__edit');
+// const btnCardAdd = profileInfo.querySelector('.profile__add-btn');
+// const avatarEdit = profileInfo.querySelector('.profile__avatar-wrap');
+// const btnDeleteConfirm = modalConfirm.querySelector('.form__button');
 
-// Profile edit form search
-const formProfileEdit = modalProfileEdit.querySelector('.form');
-const formProfileEditUsername = formProfileEdit.querySelector('.form__text-input_data_username');
-const formProfileEditAbout = formProfileEdit.querySelector('.form__text-input_data_about');
+// // Profile edit form search
+// const formProfileEdit = modalProfileEdit.querySelector('.form');
+// const formProfileEditUsername = formProfileEdit.querySelector('.form__text-input_data_username');
+// const formProfileEditAbout = formProfileEdit.querySelector('.form__text-input_data_about');
 
-// Avatar edit form search
-const formAvatarEdit = modalAvatarEdit.querySelector('.form');
-const formAvatarEditLink = formAvatarEdit.querySelector('.form__text-input_data_avatar-url');
+// // Avatar edit form search
+// const formAvatarEdit = modalAvatarEdit.querySelector('.form');
+// const formAvatarEditLink = formAvatarEdit.querySelector('.form__text-input_data_avatar-url');
 
-// Card add form search
-const formCardAdd = modalCardAdd.querySelector('.form');
-const formCardAddImgTitle = formCardAdd.querySelector('.form__text-input_data_img-title');
+// // Card add form search
+// const formCardAdd = modalCardAdd.querySelector('.form');
+// const formCardAddImgTitle = formCardAdd.querySelector('.form__text-input_data_img-title');
 
 const CONFIG = {
   formSelector: '.form',
@@ -53,20 +53,20 @@ const CONFIG = {
 };
 
 export {
-  modalProfileEdit,
-  modalAvatarEdit,
-  modalCardAdd,
-  modalConfirm,
-  btnDeleteConfirm,
-  btnProfileEdit,
-  btnCardAdd,
-  avatarEdit,
-  formProfileEdit,
-  formProfileEditUsername,
-  formProfileEditAbout,
-  formAvatarEdit,
-  formAvatarEditLink,
-  formCardAdd,
-  formCardAddImgTitle,
+  // modalProfileEdit,
+  // modalAvatarEdit,
+  // modalCardAdd,
+  // modalConfirm,
+  // btnDeleteConfirm,
+  // btnProfileEdit,
+  // btnCardAdd,
+  // avatarEdit,
+  // formProfileEdit,
+  // formProfileEditUsername,
+  // formProfileEditAbout,
+  // formAvatarEdit,
+  // formAvatarEditLink,
+  // formCardAdd,
+  // formCardAddImgTitle,
   CONFIG as config
 };

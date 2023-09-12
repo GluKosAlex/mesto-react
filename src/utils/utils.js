@@ -1,4 +1,4 @@
- // Add mousedown event to target node
+// Add mousedown event to target node
 export function addClickEventTo(target, handler) {
   target.addEventListener('click', handler);
 }
@@ -19,4 +19,3 @@ export function changeSubmitBtnText(modal, text = 'Сохранение...') {
 export function getSubmitBtnText(modal) {
   return modal.getBtnText();
 }
-
