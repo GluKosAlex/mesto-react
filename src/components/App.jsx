@@ -128,24 +128,6 @@ function App() {
       ></ModalWithForm>
 
       <ModalWithImage></ModalWithImage>
-
-      <template id='element-template'>
-        <li className='element'>
-          <img src='#' alt='' className='element__image' />
-          <div className='element__caption'>
-            <h2 className='element__title'></h2>
-            <div className='element__like-wrap'>
-              <button
-                type='button'
-                className='element__like-button'
-                aria-label='Отметить как понравившееся'
-              ></button>
-              <span className='element__like-count'>0</span>
-            </div>
-          </div>
-          <button type='button' className='element__delete' aria-label='Удалить пост'></button>
-        </li>
-      </template>
     </>
   );
 }
