@@ -1,21 +1,11 @@
-import { React, useState, useEffect, useContext } from 'react';
-import api from './../utils/api';
+import { React, useContext } from 'react';
 import Card from './Card';
 import { CurrentUserContext } from './CurrentUserContext';
+import { CardsContext } from './CardsContext'
 
-export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
+export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike }) {
   const { name, about, avatar } = useContext(CurrentUserContext);
-
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then(cardsData => {
-        setCards(cardsData);
-      })
-      .catch(err => console.log(err));
-  }, []);
+  const cards = useContext(CardsContext);
 
   return (
     <main className='content page__content wrapper'>
@@ -48,7 +38,7 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardCl
       <section>
         <ul className='elements'>
           {cards.map(item => {
-            return <Card key={item._id} cardData={item} onCardClick={onCardClick} />;
+            return <Card key={item._id} cardData={item} onCardClick={onCardClick} onCardLike={onCardLike}/>;
           })}
         </ul>
       </section>

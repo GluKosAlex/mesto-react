@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { CurrentUserContext } from './CurrentUserContext';
 
-export default function Card({ cardData, onCardClick }) {
+export default function Card({ cardData, onCardClick, onCardLike }) {
   function handleClick() {
     onCardClick(cardData);
   }
@@ -22,6 +22,7 @@ export default function Card({ cardData, onCardClick }) {
             type='button'
             className={`element__like-button ${isLiked && 'element__like-button_active'}`}
             aria-label='Отметить как понравившееся'
+            onClick={() => onCardLike(cardData)}
           ></button>
           <span className='element__like-count'>{likes.length}</span>
         </div>

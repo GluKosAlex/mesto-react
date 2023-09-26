@@ -62,11 +62,8 @@ class Api {
     }).then(this._getResponse);
   }
 
-  toggleLike(cardId, card, userId) {
-    let method = 'PUT';
-    if (card._likes.some(item => item._id === userId)) {
-      method = 'DELETE';
-    }
+  changeLikeCardStatus(cardId, isLiked) {
+    let method = isLiked ? 'PUT' : 'DELETE'
 
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method,
