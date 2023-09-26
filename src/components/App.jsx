@@ -10,6 +10,7 @@ import ModalWithImage from './ModalWithImage';
 import api from './../utils/api';
 
 import avatarPlaceholder from '../images/avatar_placeholder.svg';
+import EditProfileModal from './EditProfileModal';
 
 function App() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
@@ -96,36 +97,7 @@ function App() {
 
         <Footer />
 
-        <ModalWithForm
-          title='Редактировать профиль'
-          name='profile-edit'
-          btnText='Сохранить'
-          isOpen={isEditProfileModalOpen}
-          onClose={closeAllModals}
-        >
-          <input
-            id='name'
-            className='form__text-input form__text-input_data_username'
-            type='text'
-            name='name'
-            minLength='2'
-            maxLength='40'
-            placeholder='Имя'
-            required
-          />
-          <span className='form__input-error name-error'></span>
-          <input
-            id='about'
-            className='form__text-input form__text-input_data_about'
-            type='text'
-            name='about'
-            minLength='2'
-            maxLength='200'
-            placeholder='О себе'
-            required
-          />
-          <span className='form__input-error about-error'></span>
-        </ModalWithForm>
+        <EditProfileModal isOpen={isEditProfileModalOpen} onClose={closeAllModals} />
 
         <ModalWithForm
           title='Обновить аватар'
