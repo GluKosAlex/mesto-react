@@ -1,11 +1,9 @@
 import { React, useContext } from 'react';
 import Card from './Card';
 import { CurrentUserContext } from './CurrentUserContext';
-import { CardsContext } from './CardsContext'
 
-export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete }) {
+export default function Main({ cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete }) {
   const { name, about, avatar } = useContext(CurrentUserContext);
-  const cards = useContext(CardsContext);
 
   return (
     <main className='content page__content wrapper'>

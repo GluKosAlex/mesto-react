@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from 'react';
 import { CurrentUserContext } from './CurrentUserContext';
-import { CardsContext } from './CardsContext';
 
 import Header from './Header';
 import Main from './Main';
@@ -12,6 +11,7 @@ import api from './../utils/api';
 import avatarPlaceholder from '../images/avatar_placeholder.svg';
 import EditProfileModal from './EditProfileModal';
 import EditAvatarModal from './EditAvatarModal';
+import AddPlaceModal from './AddPlaceModal';
 
 function App() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
@@ -74,6 +74,14 @@ function App() {
       .catch(err => console.log(err));
   }
 
+  function handleAddPlace(card) {
+    api
+      .setNewCard(card)
+      .then(newCard => setCards([newCard, ...cards]))
+      .then(() => closeAllModals())
+      .catch(err => console.log(err));;
+  }
+
   function handleEditProfileClick() {
     setIsEditProfileModalOpen(true);
   }
@@ -100,71 +108,47 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <CardsContext.Provider value={cards}>
-        <Header />
+      <Header />
 
-        <Main
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-        />
+      <Main
+        cards={cards}
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
+        onCardLike={handleCardLike}
+        onCardDelete={handleCardDelete}
+      />
 
-        <Footer />
+      <Footer />
 
-        <EditProfileModal
-          isOpen={isEditProfileModalOpen}
-          onClose={closeAllModals}
-          onUpdateUser={handleUpdateUser}
-        />
+      <EditProfileModal
+        isOpen={isEditProfileModalOpen}
+        onClose={closeAllModals}
+        onUpdateUser={handleUpdateUser}
+      />
 
-        <EditAvatarModal
-          isOpen={isEditAvatarModalOpen}
-          onClose={closeAllModals}
-          onUpdateAvatar={handleUpdateAvatar}
-        />
+      <EditAvatarModal
+        isOpen={isEditAvatarModalOpen}
+        onClose={closeAllModals}
+        onUpdateAvatar={handleUpdateAvatar}
+      />
 
-        <ModalWithForm
-          title='Новое место'
-          name='card-add'
-          btnText='Создать'
-          isOpen={isAddPlaceModalOpen}
-          onClose={closeAllModals}
-        >
-          <input
-            id='img-title'
-            className='form__text-input form__text-input_data_img-title'
-            type='text'
-            name='img-title'
-            placeholder='Название'
-            minLength='2'
-            maxLength='30'
-            required
-          />
-          <span className='form__input-error img-title-error'></span>
-          <input
-            id='img-url'
-            className='form__text-input form__text-input_data_img-url'
-            type='url'
-            name='img-url'
-            placeholder='Ссылка на картинку'
-            required
-          />
-          <span className='form__input-error img-url-error'></span>
-        </ModalWithForm>
+      <AddPlaceModal
+        isOpen={isAddPlaceModalOpen}
+        onClose={closeAllModals}
+        onAddPlace={handleAddPlace}
+      />
 
-        <ModalWithForm
-          title='Вы уверены?'
-          name='confirm'
-          btnText='Да'
-          isOpen={false}
-          onClose={closeAllModals}
-        ></ModalWithForm>
+      <ModalWithForm
+        title='Вы уверены?'
+        name='confirm'
+        btnText='Да'
+        isOpen={false}
+        onClose={closeAllModals}
+      ></ModalWithForm>
 
-        <ModalWithImage card={selectedCard} onClose={closeAllModals} isOpen={isImageModalOpen} />
-      </CardsContext.Provider>
+      <ModalWithImage card={selectedCard} onClose={closeAllModals} isOpen={isImageModalOpen} />
     </CurrentUserContext.Provider>
   );
 }
