@@ -57,6 +57,14 @@ function App() {
       .catch(err => console.log(err));
   }
 
+  function handleUpdateUser(userData) {
+    api
+      .setUserInfo(userData)
+      .then(newUserData => setCurrentUser(newUserData))
+      .then(() => closeAllModals())
+      .catch(err => console.log(err));
+  }
+
   function handleEditProfileClick() {
     setIsEditProfileModalOpen(true);
   }
@@ -97,7 +105,11 @@ function App() {
 
         <Footer />
 
-        <EditProfileModal isOpen={isEditProfileModalOpen} onClose={closeAllModals} />
+        <EditProfileModal
+          isOpen={isEditProfileModalOpen}
+          onClose={closeAllModals}
+          onUpdateUser={handleUpdateUser}
+        />
 
         <ModalWithForm
           title='Обновить аватар'
