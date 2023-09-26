@@ -11,6 +11,7 @@ import api from './../utils/api';
 
 import avatarPlaceholder from '../images/avatar_placeholder.svg';
 import EditProfileModal from './EditProfileModal';
+import EditAvatarModal from './EditAvatarModal';
 
 function App() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
@@ -65,6 +66,14 @@ function App() {
       .catch(err => console.log(err));
   }
 
+  function handleUpdateAvatar(newAvatar) {
+    api
+      .setUserAvatar(newAvatar)
+      .then(newUserData => setCurrentUser(newUserData))
+      .then(() => closeAllModals())
+      .catch(err => console.log(err));
+  }
+
   function handleEditProfileClick() {
     setIsEditProfileModalOpen(true);
   }
@@ -111,23 +120,11 @@ function App() {
           onUpdateUser={handleUpdateUser}
         />
 
-        <ModalWithForm
-          title='Обновить аватар'
-          name='avatar-update'
-          btnText='Сохранить'
+        <EditAvatarModal
           isOpen={isEditAvatarModalOpen}
           onClose={closeAllModals}
-        >
-          <input
-            id='avatar-url'
-            className='form__text-input form__text-input_data_avatar-url'
-            type='url'
-            name='avatar-url'
-            placeholder='Ссылка на аватар'
-            required
-          />
-          <span className='form__input-error avatar-url-error'></span>
-        </ModalWithForm>
+          onUpdateAvatar={handleUpdateAvatar}
+        />
 
         <ModalWithForm
           title='Новое место'

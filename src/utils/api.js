@@ -34,7 +34,7 @@ class Api {
     }).then(this._getResponse);
   }
 
-  setUserAvatar(avatar) {
+  setUserAvatar({ avatar }) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
@@ -63,7 +63,7 @@ class Api {
   }
 
   changeLikeCardStatus(cardId, isLiked) {
-    let method = isLiked ? 'PUT' : 'DELETE'
+    let method = isLiked ? 'PUT' : 'DELETE';
 
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method,
