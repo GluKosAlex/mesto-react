@@ -3,7 +3,7 @@ import Card from './Card';
 import { CurrentUserContext } from './CurrentUserContext';
 import { CardsContext } from './CardsContext'
 
-export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike }) {
+export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete }) {
   const { name, about, avatar } = useContext(CurrentUserContext);
   const cards = useContext(CardsContext);
 
@@ -38,7 +38,15 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardCl
       <section>
         <ul className='elements'>
           {cards.map(item => {
-            return <Card key={item._id} cardData={item} onCardClick={onCardClick} onCardLike={onCardLike}/>;
+            return (
+              <Card
+                key={item._id}
+                cardData={item}
+                onCardClick={onCardClick}
+                onCardLike={onCardLike}
+                onCardDelete={onCardDelete}
+              />
+            );
           })}
         </ul>
       </section>
