@@ -1,11 +1,16 @@
-import React from 'react';
+import { useContext } from 'react';
+import { CurrentUserContext } from './CurrentUserContext';
 
 export default function Card({ cardData, onCardClick }) {
   function handleClick() {
     onCardClick(cardData);
   }
 
-  const { likes, name, link } = cardData;
+  const { _id: currentUserId } = useContext(CurrentUserContext);
+  const { likes, name, link, owner } = cardData;
+
+  const isOwn = owner._id === currentUserId;
+  const isLiked = likes.some(like => like._id === currentUserId);
 
   return (
     <li className='element'>
@@ -15,13 +20,15 @@ export default function Card({ cardData, onCardClick }) {
         <div className='element__like-wrap'>
           <button
             type='button'
-            className='element__like-button'
+            className={`element__like-button ${isLiked && 'element__like-button_active'}`}
             aria-label='Отметить как понравившееся'
           ></button>
           <span className='element__like-count'>{likes.length}</span>
         </div>
       </div>
-      <button type='button' className='element__delete' aria-label='Удалить пост'></button>
+      {isOwn && (
+        <button type='button' className='element__delete' aria-label='Удалить пост'></button>
+      )}
     </li>
   );
 }

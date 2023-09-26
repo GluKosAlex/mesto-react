@@ -1,19 +1,17 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useContext } from 'react';
 import api from './../utils/api';
 import Card from './Card';
+import { CurrentUserContext } from './CurrentUserContext';
 
 export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
-  const [userName, setUserName] = useState('');
-  const [userDescription, setUserDescription] = useState('');
-  const [userAvatar, setUserAvatar] = useState('');
+  const { name, about, avatar } = useContext(CurrentUserContext);
+
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    Promise.all([api.getInitialCards(), api.getUserInfo()])
-      .then(([cardsData, { name, about, avatar }]) => {
-        setUserName(name);
-        setUserDescription(about);
-        setUserAvatar(avatar);
+    api
+      .getInitialCards()
+      .then(cardsData => {
         setCards(cardsData);
       })
       .catch(err => console.log(err));
@@ -24,11 +22,11 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardCl
       <section className='profile'>
         <div className='profile__wrap'>
           <div className='profile__avatar-wrap' onClick={onEditAvatar}>
-            <img className='profile__avatar-img' src={userAvatar} alt='Аватарка' />
+            <img className='profile__avatar-img' src={avatar} alt='Аватарка' />
           </div>
           <div className='profile__info'>
             <div className='profile__name-wrap'>
-              <h1 className='profile__username'>{userName}</h1>
+              <h1 className='profile__username'>{name}</h1>
               <button
                 type='button'
                 className='profile__edit'
@@ -36,7 +34,7 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardCl
                 onClick={onEditProfile}
               ></button>
             </div>
-            <p className='profile__about'>{userDescription}</p>
+            <p className='profile__about'>{about}</p>
           </div>
         </div>
         <button

@@ -1,10 +1,14 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import ModalWithForm from './ModalWithForm';
 import ModalWithImage from './ModalWithImage';
+import api from './../utils/api';
+import { CurrentUserContext } from './CurrentUserContext';
+
+import avatarPlaceholder from '../images/avatar_placeholder.svg';
 
 function App() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
@@ -12,6 +16,18 @@ function App() {
   const [isEditAvatarModalOpen, setIsEditAvatarModalOpen] = useState(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
+  const [currentUser, setCurrentUser] = useState({
+    name: 'Loading...',
+    about: 'Loading...',
+    avatar: avatarPlaceholder,
+    _id: '',
+    cohort: ''
+  });
+
+  useEffect(() => {
+    api.getUserInfo().then(userData => setCurrentUser(userData));
+  }, [])
+
 
   function handleEditProfileClick() {
     setIsEditProfileModalOpen(true);
@@ -38,7 +54,7 @@ function App() {
   }
 
   return (
-    <>
+    <CurrentUserContext.Provider value={currentUser}>
       <Header />
 
       <Main
@@ -137,7 +153,7 @@ function App() {
       ></ModalWithForm>
 
       <ModalWithImage card={selectedCard} onClose={closeAllModals} isOpen={isImageModalOpen} />
-    </>
+    </CurrentUserContext.Provider>
   );
 }
 
