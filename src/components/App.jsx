@@ -7,6 +7,7 @@ import Footer from './Footer';
 import ModalWithForm from './ModalWithForm';
 import ModalWithImage from './ModalWithImage';
 import api from './../utils/api';
+import useEscapeKey from './../utils/useEscapeKey';
 
 import avatarPlaceholder from '../images/avatar_placeholder.svg';
 import EditProfileModal from './EditProfileModal';
@@ -105,6 +106,8 @@ function App() {
     setIsEditAvatarModalOpen(false);
     setIsImageModalOpen(false);
   }
+
+  useEscapeKey(closeAllModals);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
