@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ModalWithForm from './ModalWithForm';
 
 export default function AddPlaceModal({ isOpen, onClose, onAddPlace }) {
@@ -10,6 +10,11 @@ export default function AddPlaceModal({ isOpen, onClose, onAddPlace }) {
 
     onAddPlace({ name, link });
   }
+
+  useEffect(() => {
+    setName('');
+    setLink('');
+  }, [isOpen]);
 
   return (
     <ModalWithForm

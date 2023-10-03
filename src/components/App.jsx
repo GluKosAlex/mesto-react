@@ -79,7 +79,7 @@ function App() {
       .setNewCard(card)
       .then(newCard => setCards([newCard, ...cards]))
       .then(() => closeAllModals())
-      .catch(err => console.log(err));;
+      .catch(err => console.log(err));
   }
 
   function handleEditProfileClick() {
