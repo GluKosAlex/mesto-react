@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import ModalWithForm from './ModalWithForm';
 
-export default function EditAvatarModal({ isOpen, onClose, onUpdateAvatar }) {
+export default function EditAvatarModal({ isOpen, onClose, onUpdateAvatar, btnText }) {
   const inputRef = useRef();
 
   function handleSubmit(e) {
@@ -20,7 +20,7 @@ export default function EditAvatarModal({ isOpen, onClose, onUpdateAvatar }) {
     <ModalWithForm
       title='Обновить аватар'
       name='avatar-update'
-      btnText='Сохранить'
+      btnText={btnText}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

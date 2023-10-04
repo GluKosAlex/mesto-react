@@ -21,7 +21,14 @@ function App() {
   const [isEditAvatarModalOpen, setIsEditAvatarModalOpen] = useState(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isDeleteConfirmModalOpen, setIsDeleteConfirmModalOpen] = useState(false);
+
+  const [editProfileBtnText, setEditProfileBtnText] = useState('Сохранить');
+  const [addPlaceBtnText, setAddPlaceBtnText] = useState('Создать');
+  const [editAvatarBtnText, setEditAvatarBtnText] = useState('Сохранить');
+  const [deleteConfirmBtnText, setDeleteConfirmBtnText] = useState('Да');
+
   const [selectedCard, setSelectedCard] = useState({});
+  const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({
     name: '...',
     about: '...',
@@ -29,7 +36,6 @@ function App() {
     _id: '',
     cohort: ''
   });
-  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -59,6 +65,7 @@ function App() {
   function handleCardDelete(evt) {
     evt.preventDefault();
     const card = selectedCard;
+    setDeleteConfirmBtnText('Удаление...');
 
     api
       .deleteCard(card._id)
@@ -67,31 +74,41 @@ function App() {
         console.log(res.message);
         setIsDeleteConfirmModalOpen(false);
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error(err))
+      .finally(() => setDeleteConfirmBtnText('Да'));
   }
 
   function handleUpdateUser(userData) {
+    setEditProfileBtnText('Сохранение...');
+
     api
       .setUserInfo(userData)
       .then(newUserData => setCurrentUser(newUserData))
       .then(() => closeAllModals())
-      .catch(err => console.error(err));
+      .catch(err => console.error(err))
+      .finally(() => setEditProfileBtnText('Сохранить'));
+
   }
 
   function handleUpdateAvatar(newAvatar) {
+    setEditAvatarBtnText('Сохранение...');
     api
       .setUserAvatar(newAvatar)
       .then(newUserData => setCurrentUser(newUserData))
       .then(() => closeAllModals())
-      .catch(err => console.error(err));
+      .catch(err => console.error(err))
+      .finally(() => setEditAvatarBtnText('Сохранить'));
   }
 
   function handleAddPlace(card) {
+    setAddPlaceBtnText('Создание...');
+
     api
       .setNewCard(card)
       .then(newCard => setCards([newCard, ...cards]))
       .then(() => closeAllModals())
-      .catch(err => console.error(err));
+      .catch(err => console.error(err))
+      .finally(() => setAddPlaceBtnText('Создать'));
   }
 
   function handleEditProfileClick() {
@@ -143,24 +160,28 @@ function App() {
         isOpen={isEditProfileModalOpen}
         onClose={closeAllModals}
         onUpdateUser={handleUpdateUser}
+        btnText={editProfileBtnText}
       />
 
       <EditAvatarModal
         isOpen={isEditAvatarModalOpen}
         onClose={closeAllModals}
         onUpdateAvatar={handleUpdateAvatar}
+        btnText={editAvatarBtnText}
       />
 
       <AddPlaceModal
         isOpen={isAddPlaceModalOpen}
         onClose={closeAllModals}
         onAddPlace={handleAddPlace}
+        btnText={addPlaceBtnText}
       />
 
       <DeleteConfirmModal
         isOpen={isDeleteConfirmModalOpen}
         onClose={closeAllModals}
         onConfirm={handleCardDelete}
+        btnText={deleteConfirmBtnText}
       ></DeleteConfirmModal>
 
       <ModalWithImage card={selectedCard} onClose={closeAllModals} isOpen={isImageModalOpen} />

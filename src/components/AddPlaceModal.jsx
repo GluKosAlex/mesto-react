@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import ModalWithForm from './ModalWithForm';
 
-export default function AddPlaceModal({ isOpen, onClose, onAddPlace }) {
+export default function AddPlaceModal({ isOpen, onClose, onAddPlace, btnText }) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
 
@@ -20,7 +20,7 @@ export default function AddPlaceModal({ isOpen, onClose, onAddPlace }) {
     <ModalWithForm
       title='Новое место'
       name='card-add'
-      btnText='Создать'
+      btnText={btnText}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

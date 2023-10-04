@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { CurrentUserContext } from './CurrentUserContext'
 import ModalWithForm from './ModalWithForm';
 
-export default function EditProfileModal({ isOpen, onClose, onUpdateUser }) {
+export default function EditProfileModal({ isOpen, onClose, onUpdateUser, btnText }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
@@ -26,7 +26,7 @@ export default function EditProfileModal({ isOpen, onClose, onUpdateUser }) {
     <ModalWithForm
       title='Редактировать профиль'
       name='profile-edit'
-      btnText='Сохранить'
+      btnText={btnText}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
