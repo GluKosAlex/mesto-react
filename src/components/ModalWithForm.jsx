@@ -16,7 +16,7 @@ export default function ModalWithForm({
   useEffect(() => {
     const validator = new FormValidator(config, form.current);
     validator.enableValidation();
-    validator.disableButton();
+    validator.toggleButtonState();
     validator.removeValidationErrors();
   }, [isOpen]);
 

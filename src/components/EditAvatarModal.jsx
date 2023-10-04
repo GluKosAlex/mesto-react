@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import ModalWithForm from './ModalWithForm';
 
 export default function EditAvatarModal({ isOpen, onClose, onUpdateAvatar }) {
@@ -11,6 +11,10 @@ export default function EditAvatarModal({ isOpen, onClose, onUpdateAvatar }) {
       avatar: inputRef.current.value
     });
   }
+
+  useEffect(() => {
+    inputRef.current.value = '';
+  }, [isOpen]);
 
   return (
     <ModalWithForm

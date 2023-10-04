@@ -4,22 +4,23 @@ import { CurrentUserContext } from './CurrentUserContext';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import ModalWithForm from './ModalWithForm';
 import ModalWithImage from './ModalWithImage';
+import EditProfileModal from './EditProfileModal';
+import EditAvatarModal from './EditAvatarModal';
+import AddPlaceModal from './AddPlaceModal';
+import DeleteConfirmModal from './DeleteConfirmModal';
 import api from './../utils/api';
 import useEscapeKey from './../utils/useEscapeKey';
 import useOutsideClick from './../utils/useOverlayClick';
 
 import avatarPlaceholder from '../images/avatar_placeholder.svg';
-import EditProfileModal from './EditProfileModal';
-import EditAvatarModal from './EditAvatarModal';
-import AddPlaceModal from './AddPlaceModal';
 
 function App() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const [isAddPlaceModalOpen, setIsAddPlaceModalOpen] = useState(false);
   const [isEditAvatarModalOpen, setIsEditAvatarModalOpen] = useState(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [isDeleteConfirmModalOpen, setIsDeleteConfirmModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({
     name: '...',
@@ -36,7 +37,7 @@ function App() {
         setCurrentUser(userData);
         setCards(cardsData);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }, []);
 
   function handleCardLike(card) {
@@ -47,17 +48,26 @@ function App() {
       .then(newCard => {
         setCards(cards => cards.map(c => (c._id === card._id ? newCard : c)));
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }
 
-  function handleCardDelete(card) {
+  function handleCardDeleteClick(card) {
+    setSelectedCard(card);
+    setIsDeleteConfirmModalOpen(true);
+  }
+
+  function handleCardDelete(evt) {
+    evt.preventDefault();
+    const card = selectedCard;
+
     api
       .deleteCard(card._id)
       .then(res => {
         setCards(cards => cards.filter(c => c._id !== card._id));
         console.log(res.message);
+        setIsDeleteConfirmModalOpen(false);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }
 
   function handleUpdateUser(userData) {
@@ -65,7 +75,7 @@ function App() {
       .setUserInfo(userData)
       .then(newUserData => setCurrentUser(newUserData))
       .then(() => closeAllModals())
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }
 
   function handleUpdateAvatar(newAvatar) {
@@ -73,7 +83,7 @@ function App() {
       .setUserAvatar(newAvatar)
       .then(newUserData => setCurrentUser(newUserData))
       .then(() => closeAllModals())
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }
 
   function handleAddPlace(card) {
@@ -81,7 +91,7 @@ function App() {
       .setNewCard(card)
       .then(newCard => setCards([newCard, ...cards]))
       .then(() => closeAllModals())
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }
 
   function handleEditProfileClick() {
@@ -106,6 +116,7 @@ function App() {
     setIsAddPlaceModalOpen(false);
     setIsEditAvatarModalOpen(false);
     setIsImageModalOpen(false);
+    setIsDeleteConfirmModalOpen(false);
   }
 
   useEscapeKey(closeAllModals);
@@ -123,7 +134,7 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onCardClick={handleCardClick}
         onCardLike={handleCardLike}
-        onCardDelete={handleCardDelete}
+        onCardDelete={handleCardDeleteClick}
       />
 
       <Footer />
@@ -146,13 +157,11 @@ function App() {
         onAddPlace={handleAddPlace}
       />
 
-      <ModalWithForm
-        title='Вы уверены?'
-        name='confirm'
-        btnText='Да'
-        isOpen={false}
+      <DeleteConfirmModal
+        isOpen={isDeleteConfirmModalOpen}
         onClose={closeAllModals}
-      ></ModalWithForm>
+        onConfirm={handleCardDelete}
+      ></DeleteConfirmModal>
 
       <ModalWithImage card={selectedCard} onClose={closeAllModals} isOpen={isImageModalOpen} />
     </CurrentUserContext.Provider>
