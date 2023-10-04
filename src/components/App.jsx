@@ -8,6 +8,7 @@ import ModalWithForm from './ModalWithForm';
 import ModalWithImage from './ModalWithImage';
 import api from './../utils/api';
 import useEscapeKey from './../utils/useEscapeKey';
+import useOutsideClick from './../utils/useOverlayClick';
 
 import avatarPlaceholder from '../images/avatar_placeholder.svg';
 import EditProfileModal from './EditProfileModal';
@@ -108,6 +109,8 @@ function App() {
   }
 
   useEscapeKey(closeAllModals);
+
+  useOutsideClick(closeAllModals);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
