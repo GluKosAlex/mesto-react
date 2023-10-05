@@ -1,25 +1,33 @@
 import { useContext, useEffect, useState } from 'react';
-import { CurrentUserContext } from '../contexts/CurrentUserContext'
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import ModalWithForm from './ModalWithForm';
 
 export default function EditProfileModal({ isOpen, onClose, onUpdateUser, btnText }) {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [values, setValues] = useState({});
 
   const currentUser = useContext(CurrentUserContext);
 
   function handleSubmit(e) {
     e.preventDefault();
 
+    const { name, about } = values;
+
     onUpdateUser({
       name,
-      about: description
+      about
     });
   }
 
+  function handleChange(evt) {
+    const { name, value } = evt.target;
+    setValues({ ...values, [name]: value });
+  }
+
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
+    setValues({
+      name: currentUser.name,
+      about: currentUser.about
+    });
   }, [currentUser, isOpen]);
 
   return (
@@ -39,8 +47,8 @@ export default function EditProfileModal({ isOpen, onClose, onUpdateUser, btnTex
         minLength='2'
         maxLength='40'
         placeholder='Имя'
-        value={name}
-        onChange={e => setName(e.target.value)}
+        value={values.name}
+        onChange={handleChange}
         required
       />
       <span className='form__input-error name-error'></span>
@@ -52,8 +60,8 @@ export default function EditProfileModal({ isOpen, onClose, onUpdateUser, btnTex
         minLength='2'
         maxLength='200'
         placeholder='О себе'
-        value={description}
-        onChange={e => setDescription(e.target.value)}
+        value={values.about}
+        onChange={handleChange}
         required
       />
       <span className='form__input-error about-error'></span>
